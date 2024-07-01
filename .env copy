@@ -1,0 +1,9 @@
+# 🔥 ESTE ARCHIVO DEBE LLAMARSE .env 🔥
+# 🔥 NO OLVIDAR AGREGAR EL ARCHIVO .env AL .gitignore 🔥
+AUTH_SECRET=""
+
+DATABASE_URL="postgresql://postgres:root@localhost:5432/auth_yt?schema=public"
+
+AUTH_RESEND_KEY=""
+
+NEXTAUTH_URL="http://localhost:3000"
