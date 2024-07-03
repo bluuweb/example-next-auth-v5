@@ -19,7 +19,15 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-const FormLogin = ({ isVerified }: { isVerified: boolean }) => {
+import { FaGithub, FaGoogle } from "react-icons/fa6";
+import ButtonSocial from "./button-social";
+
+interface FormLoginProps {
+  isVerified: boolean;
+  OAuthAccountNotLinked: boolean;
+}
+
+const FormLogin = ({ isVerified, OAuthAccountNotLinked }: FormLoginProps) => {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -46,10 +54,16 @@ const FormLogin = ({ isVerified }: { isVerified: boolean }) => {
 
   return (
     <div className="max-w-52">
-      <h1>Login</h1>
+      <h1 className="mb-5 text-center text-2xl">Login</h1>
       {isVerified && (
         <p className="text-center text-green-500 mb-5 text-sm">
           Email verified, you can now login
+        </p>
+      )}
+      {OAuthAccountNotLinked && (
+        <p className="text-center text-red-500 mb-5 text-sm">
+          To confirm your identity, sign in with the same account you used
+          originally.
         </p>
       )}
       <Form {...form}>
@@ -100,6 +114,16 @@ const FormLogin = ({ isVerified }: { isVerified: boolean }) => {
           </Button>
         </form>
       </Form>
+      <div className="mt-5 space-y-4">
+        <ButtonSocial provider="github">
+          <FaGithub className="mr-2 h-4 w-4" />
+          <span>Sign in with Github</span>
+        </ButtonSocial>
+        <ButtonSocial provider="google">
+          <FaGoogle className="mr-2 h-4 w-4" />
+          <span>Sign in with Google</span>
+        </ButtonSocial>
+      </div>
     </div>
   );
 };

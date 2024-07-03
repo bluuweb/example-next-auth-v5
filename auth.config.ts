@@ -6,9 +6,14 @@ import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { sendEmailVerification } from "./lib/mail";
 
+import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
+
 // Notice this is only an object, not a full Auth.js instance
 export default {
   providers: [
+    Google,
+    GitHub,
     Credentials({
       authorize: async (credentials) => {
         const { data, success } = loginSchema.safeParse(credentials);

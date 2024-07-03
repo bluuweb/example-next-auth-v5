@@ -39,9 +39,22 @@ export const registerAction = async (
       where: {
         email: data.email,
       },
+      include: {
+        accounts: true, // Incluir las cuentas asociadas
+      },
     });
 
     if (user) {
+      // Verificar si tiene cuentas OAuth vinculadas
+      const oauthAccounts = user.accounts.filter(
+        (account) => account.type === "oauth"
+      );
+      if (oauthAccounts.length > 0) {
+        return {
+          error:
+            "To confirm your identity, sign in with the same account you used originally.",
+        };
+      }
       return {
         error: "User already exists",
       };
